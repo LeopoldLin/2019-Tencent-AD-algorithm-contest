@@ -4,8 +4,11 @@ import os.path as osp
 dataset_dir = '/home/leopold/dataset/Tencent/testA'
 
 total_ad_logs = []
-ad_static = []
-#
+ad_statics = []
+ad_operations = []
+user_datas = []
+
+# 历史曝光数据
 # with open(osp.join(dataset_dir, 'totalExposureLog_200000.out'), 'r') as f:
 #     for line in f.readlines():
 #         ad_log = line.rstrip().split('\t')
@@ -21,7 +24,7 @@ ad_static = []
 #                 #     print(ad_log)
 #         total_ad_logs.append(ad_log)
 
-
+# 广告静态数据
 with open(osp.join(dataset_dir, 'ad_static_feature.out'), 'r') as f:
     for line in f.readlines():
         line = line.rstrip().split('\t')
@@ -44,17 +47,10 @@ with open(osp.join(dataset_dir, 'ad_static_feature.out'), 'r') as f:
         material_size = line[-1].split(',')
         material_size = [int(material_size[i]) for i in range(len(material_size))]
         stat.append(material_size)
-        
-        ad_static.append(stat)
-        
-commodity_id_dict = {}
-commodity_type_dict = {}
-ad_industry_id_dict = {}
-material_size_dict = {}
 
-for i in range(len(ad_static)):
-    for item in ad_static[i][-2]:
-        if item not in ad_industry_id_dict.keys():
-            ad_industry_id_dict[item] = i
+        ad_statics.append(stat)
 
-print(ad_industry_id_dict)
+# 广告操作动态数据
+with open(osp.join(dataset_dir, 'ad_operation.dat'), 'r') as f:
+    for line in f.readlines():
+        line.rstrip().split('\t')
